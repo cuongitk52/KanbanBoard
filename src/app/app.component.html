@@ -1,35 +1,62 @@
 <header class="container">
-  <div style="background-color: blue;height: 50px;"></div>
+  <h1 class="header">KANBAN BOARD</h1>
 </header>
 <section class="container">
-  <div class="row" style="display: flex;justify-content:center;">
-  <div style="width: 200px;">
-    <mat-card>
-      <mat-card-title>AAAA</mat-card-title>
-      <mat-card-subtitle>BBB</mat-card-subtitle>
-    </mat-card>
-  </div>
   <div>
-    <mat-card>
-      <mat-card-title>AAAA</mat-card-title>
-      <mat-card-subtitle>BBB</mat-card-subtitle>
+    <mat-card class="example-card">
+      <mat-card-title class="card-title">
+        <span>TO DO</span>
+        <i class="material-icons" style="color: red">delete</i>
+      </mat-card-title>
+      <mat-card-content>
+        <div
+          cdkDropList
+          #todoList="cdkDropList"
+          [cdkDropListData]="todo"
+          [cdkDropListConnectedTo]="[doneList]"
+          class="example-list"
+          (cdkDropListDropped)="drop($event)"
+        >
+          <div class="example-box" *ngFor="let item of todo" cdkDrag>
+            {{ item }}
+          </div>
+        </div>
+      </mat-card-content>
+      <mat-card-actions class="card-action">
+        <mat-form-field class="example-form-field">
+          <input matInput type="text" value="New Job" />
+        </mat-form-field>
+        <button mat-button class="button">Add</button>
+      </mat-card-actions>
+    </mat-card>
+    <mat-card class="example-card">
+      <mat-card-title class="card-title">
+        <span>DONE</span>
+        <i class="material-icons" style="color: red">delete</i>
+      </mat-card-title>
+      <mat-card-content>
+        <div
+          cdkDropList
+          #doneList="cdkDropList"
+          [cdkDropListData]="done"
+          [cdkDropListConnectedTo]="[todoList]"
+          class="example-list"
+          (cdkDropListDropped)="drop($event)"
+        >
+          <div class="example-box" *ngFor="let item of done" cdkDrag>
+            {{ item }}
+          </div>
+        </div>
+      </mat-card-content>
+      <mat-card-actions class="card-action">
+        <mat-form-field class="example-form-field">
+          <input matInput type="text" value="New Job" />
+        </mat-form-field>
+        <button mat-button class="button">Add</button>
+      </mat-card-actions>
     </mat-card>
   </div>
-  <div>
-    <mat-card>
-      <mat-card-title>AAAA</mat-card-title>
-      <mat-card-subtitle>BBB</mat-card-subtitle>
-    </mat-card>
-  </div>
-  <div>
-    <mat-card>
-      <mat-card-title>AAAA</mat-card-title>
-      <mat-card-subtitle>BBB</mat-card-subtitle>
-    </mat-card>
-  </div>
-</div>
 </section>
 <section class="container">
-  <div class="promotion">
-  </div>
+  <div class="promotion"></div>
 </section>
