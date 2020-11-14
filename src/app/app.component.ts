@@ -94,13 +94,30 @@ export class AppComponent implements OnInit {
     }
   }
 
-  DeleteColumn(indexColumn) {
-    this.board.splice(indexColumn, 1);
-    localStorage.setItem('board', JSON.stringify(this.board));
-  }
   DeleteItem(indexColumn, indexItem) {
-    this.board[indexColumn].itemArray.splice(indexItem, 1);
-    localStorage.setItem('board', JSON.stringify(this.board));
+    const dialogRef = this.dialog.open(ModalComponent, {
+      width: '400px',
+      data: { modalTitle: 'Bạn có muốn xóa task?' },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.board[indexColumn].itemArray.splice(indexItem, 1);
+        localStorage.setItem('board', JSON.stringify(this.board));
+      }
+    });
+  }
+
+  DeleteColumn(indexColumn) {
+    const dialogRef = this.dialog.open(ModalComponent, {
+      width: '400px',
+      data: { modalTitle: 'Bạn có muốn xóa column?' },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.board.splice(indexColumn, 1);
+        localStorage.setItem('board', JSON.stringify(this.board));
+      }
+    });
   }
 
   drop(event: CdkDragDrop<string[]>) {
