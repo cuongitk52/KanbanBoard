@@ -2,57 +2,43 @@
   <h1 class="header">KANBAN BOARD</h1>
 </header>
 <section class="container">
-  <div>
-    <mat-card class="example-card">
+  <div class="board" cdkDropListGroup>
+    <mat-card class="kanban-card" *ngFor="let itemCard of board; let idxCard = index">
       <mat-card-title class="card-title">
-        <span>TO DO</span>
-        <i class="material-icons" style="color: red">delete</i>
+        <span>{{itemCard.name}}<span *ngIf="itemCard.itemArray.length> 0"> ({{itemCard.itemArray.length}})</span></span>
+        <button class="button-delete" (click)="DeleteColumn(idxCard)">
+          <i class="material-icons" style="color: red">delete</i>
+        </button>
       </mat-card-title>
       <mat-card-content>
         <div
           cdkDropList
           #todoList="cdkDropList"
-          [cdkDropListData]="todo"
-          [cdkDropListConnectedTo]="[doneList]"
+          [cdkDropListData]="itemCard.itemArray"
           class="example-list"
           (cdkDropListDropped)="drop($event)"
         >
-          <div class="example-box" *ngFor="let item of todo" cdkDrag>
+          <div class="example-box" *ngFor="let item of itemCard.itemArray; let i=index" cdkDrag>
             {{ item }}
+            <button class="button-delete-item" (click)="DeleteItem(idxCard,i)">
+              <i class="material-icons" style="color: red">delete</i>
+            </button>
           </div>
         </div>
       </mat-card-content>
       <mat-card-actions class="card-action">
-        <mat-form-field class="example-form-field">
-          <input matInput type="text" value="New Job" />
+        <mat-form-field class="kanban-form-field">
+        <input matInput type="text" [(ngModel))]="inputItem" #inputText/>
         </mat-form-field>
-        <button mat-button class="button">Add</button>
+        <button mat-button class="button" (click)="AddItem(idxCard,inputText)">Add</button>
       </mat-card-actions>
     </mat-card>
-    <mat-card class="example-card">
-      <mat-card-title class="card-title">
-        <span>DONE</span>
-        <i class="material-icons" style="color: red">delete</i>
-      </mat-card-title>
-      <mat-card-content>
-        <div
-          cdkDropList
-          #doneList="cdkDropList"
-          [cdkDropListData]="done"
-          [cdkDropListConnectedTo]="[todoList]"
-          class="example-list"
-          (cdkDropListDropped)="drop($event)"
-        >
-          <div class="example-box" *ngFor="let item of done" cdkDrag>
-            {{ item }}
-          </div>
-        </div>
-      </mat-card-content>
+    <mat-card class="kanban-card">
       <mat-card-actions class="card-action">
-        <mat-form-field class="example-form-field">
-          <input matInput type="text" value="New Job" />
+        <mat-form-field class="kanban-form-field">
+          <input matInput type="text" [(ngModel)]="newListName" #inputListText/>
         </mat-form-field>
-        <button mat-button class="button">Add</button>
+        <button mat-button class="button" (click)="AddList(inputListText)">Add</button>
       </mat-card-actions>
     </mat-card>
   </div>

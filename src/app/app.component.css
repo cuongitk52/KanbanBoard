@@ -6,10 +6,15 @@
   align-items: center;
   height: 60px;
 }
-.example-card {
+.board {
+  display: flex;
+  justify-content: center;
+}
+.kanban-card {
   background-color: rgba(0, 0, 0, 0.06);
   color: black;
   width: 400px;
+  height: 100%;
   max-width: 100%;
   margin: 0 25px 25px 0;
   display: inline-block;
@@ -26,12 +31,21 @@
   justify-content: space-between;
   align-items: center;
 }
-.example-form-field {
+.kanban-form-field{
   width: 100%;
 }
 .button {
   background-color: #3f51b5;
   color: white;
+}
+.button-delete {
+  border: white;
+  color: white;
+}
+.button-delete-item {
+  border: white;
+  color: white;
+  background-color:white;
 }
 
 .example-container {
